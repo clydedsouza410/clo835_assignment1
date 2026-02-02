@@ -30,10 +30,11 @@ jobs:
 
       - name: Build and push WEBAPP
         run: |
-          docker build -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$WEBAPP_REPO:latest -f Dockerfile .
+          docker build --no-cache -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$WEBAPP_REPO:latest -f Dockerfile .
           docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$WEBAPP_REPO:latest
 
       - name: Build and push MYSQL
         run: |
-          docker build -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$MYSQL_REPO:latest -f Dockerfile_mysql .
+          docker build --no-cache -t $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$MYSQL_REPO:latest -f Dockerfile_mysql .
           docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$MYSQL_REPO:latest
+
