@@ -9,7 +9,9 @@ RUN apt-get update -y && \
 WORKDIR /app
 COPY . /app
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+# FORCE compatible versions (fixes Werkzeug url_quote error)
+RUN pip3 install --no-cache-dir --upgrade pip && \
+    pip3 install --no-cache-dir Flask==2.0.3 Werkzeug==2.0.3 pymysql==1.0.2 cryptography==38.0.4
 
 EXPOSE 8080
 CMD ["python3", "app.py"]
