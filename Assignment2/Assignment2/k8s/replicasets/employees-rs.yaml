@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: employees-rs
+  namespace: employees
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      imagePullSecrets:
+      - name: ecr-pull-secret
+      containers:
+      - name: employees
+        image: <ECR_WEB_URI>:v1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DBHOST
+          value: "mysql-svc-clusterip.mysql.svc.cluster.local"
+        - name: DBPORT
+          value: "3306"
+        - name: DBUSER
+          value: "root"
+        - name: DBPWD
+          value: "pw"
+        - name: DATABASE
+          value: "employees"
+        - name: APP_COLOR
+          value: "blue"
